@@ -1,0 +1,535 @@
+/* CSS Variables - Dark theme default */
+:root {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #1a1a1a;
+    --bg-card: #1e1e1e;
+    --text-primary: #e5e5e5;
+    --text-secondary: #a3a3a3;
+    --border-color: #2e2e2e;
+    --accent-color: #37c593;
+    --accent-hover: #2da77d;
+}
+
+/* Light theme */
+[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f5f5f5;
+    --bg-card: #ffffff;
+    --text-primary: #171717;
+    --text-secondary: #525252;
+    --border-color: #e5e5e5;
+    --accent-color: #37c593;
+    --accent-hover: #2da77d;
+}
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Navigation */
+.top-nav {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+}
+
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.theme-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+/* Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+/* Map Guide Layout */
+.map-guide-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+/* Selectors Container */
+.map-guide-selectors {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    flex-shrink: 0;
+    gap: 0.5rem;
+    align-items: stretch;
+    transition: width 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    overflow: hidden;
+}
+
+.map-guide-selectors.faded {
+    opacity: 0.3;
+}
+
+.map-guide-selectors.faded:hover {
+    opacity: 1;
+}
+
+/* Selector Sections */
+.selector-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+/* Fixed heights for each section to prevent layout shifts */
+/* Game selector (1 option) */
+.map-guide-selectors > .selector-section:nth-child(1) {
+    min-height: 75px;
+}
+
+/* Mode selector (3 options) */
+.map-guide-selectors > .selector-section:nth-child(3) {
+    min-height: 155px;
+}
+
+/* Map selector (5 options) */
+.map-guide-selectors > .selector-section:nth-child(5) {
+    min-height: 250px;
+}
+
+.selector-section.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Flow Arrow between sections */
+.flow-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.flow-arrow span {
+    opacity: 0.6;
+}
+
+.selector-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.selector-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.selector-placeholder {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+/* Selection Tabs */
+.selection-tab {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.selection-tab:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+.selection-tab.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 0 12px rgba(55, 197, 147, 0.3);
+}
+
+.selection-tab.unavailable {
+    opacity: 0.35;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.selection-tab.unavailable:hover {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+
+/* Map Content */
+.map-guide-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+.map-display-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.map-display-container {
+    display: flex;
+}
+
+/* Map Guide Placeholder */
+.map-guide-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    aspect-ratio: 1.6 / 1;
+    background: var(--bg-card);
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    text-align: center;
+    padding: 2rem;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.placeholder-message {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+/* Map Toolbar */
+.map-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+}
+
+.map-toolbar-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+}
+
+.map-toolbar-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.map-toolbar-mode {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+/* Callout Toggle Button */
+.callout-toggle-btn {
+    padding: 0.5rem 1rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.callout-toggle-btn:hover {
+    background: var(--bg-primary);
+    border-color: var(--accent-color);
+}
+
+.callout-toggle-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #000;
+}
+
+/* Map Display */
+.map-display {
+    height: 100%;
+    aspect-ratio: 1.6 / 1;
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.map-display:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.map-display img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+    transform: scale(var(--zoom, 1.1));
+}
+
+.map-display:hover img {
+    transform: scale(calc(var(--zoom, 1.1) + 0.05));
+}
+
+/* Image Lightbox */
+.image-lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.image-lightbox.active {
+    display: flex;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    z-index: 1001;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+#lightboxImage {
+    width: 150vh;
+    height: 150vh;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Footer */
+.footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-text {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .map-guide-layout {
+        flex-direction: column;
+    }
+
+    .map-guide-selectors {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .map-guide-selectors > .selector-section:nth-child(1),
+    .map-guide-selectors > .selector-section:nth-child(3),
+    .map-guide-selectors > .selector-section:nth-child(5) {
+        min-height: auto;
+    }
+
+    .map-guide-selectors .selector-section {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .map-guide-selectors .flow-arrow {
+        display: none;
+    }
+
+    .map-guide-selectors.faded {
+        opacity: 1;
+    }
+
+    .selector-tabs {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .selection-tab {
+        flex: 1;
+        min-width: fit-content;
+        text-align: center;
+    }
+
+    .map-display {
+        aspect-ratio: 1.4 / 1;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .nav-brand .brand-name {
+        font-size: 1rem;
+    }
+
+    .map-guide-selectors .selector-section {
+        min-width: 100%;
+    }
+
+    .selector-section {
+        padding: 0.75rem;
+    }
+
+    .selector-label {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .selection-tab {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .map-toolbar {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .map-toolbar-name {
+        font-size: 1rem;
+    }
+
+    .map-toolbar-mode {
+        font-size: 0.75rem;
+    }
+
+    .callout-toggle-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .map-display {
+        aspect-ratio: 1.3 / 1;
+    }
+}

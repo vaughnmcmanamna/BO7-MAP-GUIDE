@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COD Map Guide - Strategic Map Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-name">COD Map Guide</span>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode" id="themeToggle">
+                    <span class="theme-icon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <section class="page-view active">
+            <div class="map-guide-layout">
+                <!-- Three-Level Selection System -->
+                <div class="map-guide-selectors" id="mapGuideSelectors">
+                    <!-- Level 1: Game Selector -->
+                    <div class="selector-section">
+                        <h4 class="selector-label">Select Game</h4>
+                        <div class="selector-tabs" id="gameSelector"></div>
+                    </div>
+
+                    <div class="flow-arrow"><span>▼</span></div>
+
+                    <!-- Level 2: Mode Selector -->
+                    <div class="selector-section">
+                        <h4 class="selector-label">Select Mode</h4>
+                        <div class="selector-tabs" id="modeSelector"></div>
+                    </div>
+
+                    <div class="flow-arrow"><span>▼</span></div>
+
+                    <!-- Level 3: Map Selector -->
+                    <div class="selector-section">
+                        <h4 class="selector-label">Select Map</h4>
+                        <div class="selector-tabs" id="mapTabs"></div>
+                    </div>
+                </div>
+
+                <!-- Map Content Container -->
+                <div id="mapGuideContent" class="map-guide-content"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightboxImage" src="" alt="Map Preview" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            initMapGuide();
+        });
+    </script>
+</body>
+</html>
