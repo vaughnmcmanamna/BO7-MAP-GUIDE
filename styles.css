@@ -22,6 +22,12 @@
     --accent-hover: #2da77d;
 }
 
+/* Invert map images in light mode */
+[data-theme="light"] .map-display img,
+[data-theme="light"] .lightbox-content img {
+    filter: invert(1) hue-rotate(180deg);
+}
+
 /* Reset and Base */
 * {
     margin: 0;
@@ -69,6 +75,23 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.nav-hire {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid var(--border-color);
+}
+
+.nav-hire a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.nav-hire a:hover {
+    text-decoration: underline;
 }
 
 .nav-actions {
@@ -435,6 +458,27 @@ body {
     font-size: 0.875rem;
 }
 
+.footer-hire {
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.footer-hire a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.footer-hire a:hover {
+    text-decoration: underline;
+}
+
+.footer-tech {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    opacity: 0.6;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .map-guide-layout {
@@ -492,6 +536,10 @@ body {
 
     .nav-brand .brand-name {
         font-size: 1rem;
+    }
+
+    .nav-hire {
+        display: none;
     }
 
     .map-guide-selectors .selector-section {
