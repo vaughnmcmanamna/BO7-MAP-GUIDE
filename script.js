@@ -44,15 +44,15 @@ const mapGuideConfig = {
     ],
     modes: ['Hardpoint', 'Search', 'Overload'],
     mapsByGame: {
-        'bo7': ['Blackheart', 'Colossus', 'Den', 'Exposure', 'Scar']
+        'bo7': ['Blackheart', 'Colossus', 'Den', 'Exposure', 'Raid', 'Scar']
     },
     // Define which maps are available per mode (if not listed, all maps are available)
     // Add map names to the array to ENABLE them for that mode
     modeMapAvailability: {
         'bo7': {
             'Hardpoint': ['Blackheart', 'Colossus', 'Den', 'Exposure', 'Scar'],
-            'Search': ['Colossus', 'Den', 'Exposure', 'Scar'],  // No Blackheart
-            'Overload': ['Blackheart', 'Colossus', 'Den', 'Exposure', 'Scar']
+            'Search': ['Colossus', 'Den', 'Exposure', 'Raid', 'Scar'],  // No Blackheart
+            'Overload': ['Den', 'Exposure', 'Scar']
         }
     }
 };
@@ -72,6 +72,7 @@ const mapGuideData = {
             'Colossus': { info: 'Colossus Search strategic information' },
             'Den': { info: 'Den Search strategic information' },
             'Exposure': { info: 'Exposure Search strategic information' },
+            'Raid': { info: 'Raid Search strategic information' },
             'Scar': { info: 'Scar Search strategic information' }
         },
         'Overload': {
@@ -91,7 +92,8 @@ const mapGuideData = {
 const mapGuideState = {
     selectedGame: null,
     selectedMode: null,
-    selectedMap: null
+    selectedMap: null,
+    showCallouts: false
 };
 
 // =============================================================================
@@ -100,7 +102,8 @@ const mapGuideState = {
 
 // Per-map zoom levels (default is 1.15)
 const mapZoomLevels = {
-    'Colossus': 1.25
+    'Colossus': 1.25,
+    'Raid': 1.05
 };
 
 function getMapZoom(mapName) {
@@ -112,10 +115,10 @@ function getModeImage(mapName, mode) {
     const game = mapGuideState.selectedGame;
     const gameUpper = game.toUpperCase();
 
-    // Mode folder mapping (search and overload reuse hardpoint for now)
+    // Mode folder mapping
     const modeFolder = {
         'Hardpoint': 'hardpoint',
-        'Search': 'hardpoint',      // Reuse hardpoint for now
+        'Search': 'search',
         'Overload': 'hardpoint'     // Reuse hardpoint for now
     };
 
@@ -138,20 +141,20 @@ function getCalloutImage(mapName) {
 // =============================================================================
 
 function toggleCallouts() {
+    mapGuideState.showCallouts = !mapGuideState.showCallouts;
+
     const img = document.getElementById('mapImage');
     const btn = document.getElementById('calloutBtn');
 
     if (img && btn) {
-        const isShowingCallouts = img.dataset.showing === 'callouts';
-
-        if (isShowingCallouts) {
-            img.src = img.dataset.baseImage;
-            img.dataset.showing = 'base';
-            btn.classList.remove('active');
-        } else {
+        if (mapGuideState.showCallouts) {
             img.src = img.dataset.calloutImage;
             img.dataset.showing = 'callouts';
             btn.classList.add('active');
+        } else {
+            img.src = img.dataset.baseImage;
+            img.dataset.showing = 'base';
+            btn.classList.remove('active');
         }
     }
 }
@@ -340,12 +343,14 @@ function renderMapGuideContent() {
     const mapImage = getModeImage(selectedMap, selectedMode);
     const calloutImage = getCalloutImage(selectedMap);
     const zoomLevel = getMapZoom(selectedMap);
+    const showCallouts = mapGuideState.showCallouts;
 
-    // Preload callout image for instant toggle
-    if (calloutImage) {
-        const preload = new Image();
-        preload.src = calloutImage;
-    }
+    // Preload the other image for instant toggle
+    const preload = new Image();
+    preload.src = showCallouts ? mapImage : calloutImage;
+
+    const displayImage = showCallouts ? calloutImage : mapImage;
+    const showingState = showCallouts ? 'callouts' : 'base';
 
     container.innerHTML = `
         <div class="map-display-wrapper">
@@ -354,7 +359,7 @@ function renderMapGuideContent() {
                     <span class="map-toolbar-name">${selectedMap}</span>
                     <span class="map-toolbar-mode">${selectedMode}</span>
                 </div>
-                <button class="callout-toggle-btn" id="calloutBtn" onclick="toggleCallouts()">
+                <button class="callout-toggle-btn ${showCallouts ? 'active' : ''}" id="calloutBtn" onclick="toggleCallouts()">
                     Callouts
                 </button>
             </div>
@@ -362,11 +367,11 @@ function renderMapGuideContent() {
                 <div class="map-display" onclick="openLightbox(document.getElementById('mapImage').src, '${selectedMap}')">
                     ${mapImage ? `
                         <img id="mapImage"
-                             src="${mapImage}"
+                             src="${displayImage}"
                              alt="${selectedMap} Map"
                              data-base-image="${mapImage}"
                              data-callout-image="${calloutImage}"
-                             data-showing="base"
+                             data-showing="${showingState}"
                              style="--zoom: ${zoomLevel}" />
                     ` : `
                         <div style="padding: 4rem; text-align: center; color: var(--text-secondary);">
